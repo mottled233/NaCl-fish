@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="NaCl-fish"
+  id="myeclipse.1509455063911"
+  context-root="/NaCl-fish"
+  j2ee-spec="5.0"
+  archive="NaCl-fish.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
