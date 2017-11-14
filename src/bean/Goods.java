@@ -7,7 +7,8 @@ public class Goods {
 	private String owner;
 	private String gLocation;
 	private String gImg;
-	
+	private String gKind;
+
 	public Goods(){
 		
 	}
@@ -60,5 +61,12 @@ public class Goods {
 		this.gImg = gImg;
 	}
 
-	
+	public String getgKind() {
+		return gKind;
+	}
+
+	public void setgKind(String gKind) {
+		this.gKind = gKind;
+	}
+
 }
