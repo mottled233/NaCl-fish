@@ -1,20 +1,19 @@
-package DAO;
+package dao;
 
 import java.util.ArrayList;
 
-import beans.Order;
+import bean.Order;
 
 public interface OrderDAO {
 	
 	/**
-	 * @see OrderDAO#Order_Create(String, String, int) 创建订单
-	 * @param saller_ID 卖家ID
+	 * @see OrderDAO#Order_Create( String, int) 创建订单
 	 * @param costumer_ID 买家ID
 	 * @param Item_ID 物品ID 
 	 * 
 	 * @return 订单号
 	 * */
-	public int Order_Create(String saller_ID,String costumer_ID,int Item_ID);
+	public int Order_Create(String costumer_ID,int Item_ID);
 	
 	/**
 	 * @see OrderDAO#Item_getListByKeyword() 根据买家与卖家获取买入与卖出订单列表

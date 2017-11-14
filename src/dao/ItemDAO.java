@@ -1,8 +1,8 @@
-package DAO;
+package dao;
 
 import java.util.ArrayList;
 
-import beans.Item;
+import bean.Goods;
 
 public interface ItemDAO {
 	
@@ -10,10 +10,10 @@ public interface ItemDAO {
 	/**
 	 *@see ItemDAO#Item_getDetailInf(int) 获得物品详情
 	 *
-	 * @param ItemID 物品ID
+	 * @param GID 物品ID
 	 * @return 由物品详情所创建的物品对象
 	 * */
-	public Item Item_getDdtailInf(int ItemID);
+	public Goods Item_getDdtailInf(int GID);
 	
 	/**
 	 * @see ItemDAO#Item_getRank(String) 获得物品排序
@@ -22,17 +22,17 @@ public interface ItemDAO {
 	 * @return 物品排行表
 	 * */
 	
-	public ArrayList<ItemDAO> Item_getRank(String Rank);
+	public ArrayList<Goods> Item_getRank(String Rank);
 
 	
 	/**
 	 * @see ItemDAO#Item_getListByKeyword(String) 根据关键词搜索列表
 	 * 
-	 * @param keyword 关键词
+	 * @param keyword[] 关键词
 	 * 
 	 * @return 查询结果构成的列表
 	 * */
-	public ArrayList<ItemDAO> Item_getListByKeyword(String keyword);
+	public ArrayList<Goods> Item_getListByKeyword(String[] keyword);
 
 	
 	/**
@@ -41,7 +41,7 @@ public interface ItemDAO {
 	 * 
 	 * @return 查询结果构成的列表
 	 * */
-	public ArrayList<ItemDAO> Item_getListByClass(String category);
+	public ArrayList<Goods> Item_getListByClass(String category);
 
 	
 	/**
@@ -55,12 +55,12 @@ public interface ItemDAO {
 
 	
 	/**
-	 * @see ItemDAO#Item_Issue(ItemDAO) 发布物品
+	 * @see ItemDAO#Item_Issue(Goods) 发布物品
 	 * @param item 由网页表单创建的物品对象
 	 * 
 	 * */
 	
-	public void Item_Issue(ItemDAO item);
+	public void Item_Issue(Goods item);
 //	发布货物
 	
 	/**
