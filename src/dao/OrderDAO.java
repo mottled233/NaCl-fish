@@ -11,7 +11,7 @@ public interface OrderDAO {
 	 * @param costumer_ID 买家ID
 	 * @param Item_ID 物品ID 
 	 * 
-	 * @return 订单号
+	 * @return 订单号 如果失败返回-1
 	 * */
 	public int Order_Create(String costumer_ID,int Item_ID);
 	

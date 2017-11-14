@@ -14,8 +14,8 @@ public class User implements UserDAO {
 		try {
 			Connection connection=DBHelper.getConnection();
 			Statement statement=connection.createStatement();
-			String str="select * from Users where UserID='"+User_ID+"'";
-			ResultSet rs=
+			String str="select password from Users where UserID='"+User_ID+"'";
+			ResultSet rs=statement.executeQuery(str);
 			
 			
 		} catch (SQLException e) {
