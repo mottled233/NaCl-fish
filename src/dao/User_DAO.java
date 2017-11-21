@@ -8,9 +8,9 @@ import java.sql.Statement;
 import bean.Users;
 import util.DBHelper;
 
-public class User implements UserDAO {
+public class User_DAO{
 
-	public boolean User_checkin(String User_ID, String password) {
+	public static boolean User_checkin(String User_ID, String password) {
 		try {
 			Connection connection=DBHelper.getConnection();
 			Statement statement=connection.createStatement();
@@ -32,7 +32,7 @@ public class User implements UserDAO {
 		return false;
 	}
 
-	public Users User_getInf(String User_ID) {
+	public static Users User_getInf(String User_ID) {
 		// TODO 自动生成的方法存根
 		try {
 			Users user=new Users();
@@ -65,7 +65,7 @@ public class User implements UserDAO {
 		return null;
 	}
 
-	public void Rigist(Users user) {
+	public static void Rigist(Users user) {
 		// TODO 自动生成的方法存根
 		try {
 			Connection connection=DBHelper.getConnection();
@@ -79,7 +79,7 @@ public class User implements UserDAO {
 		}
 	}
 
-	public void User_Update(Users user) {
+	public static void User_Update(Users user) {
 		// TODO 自动生成的方法存根
 		try {
 			Connection connection=DBHelper.getConnection();

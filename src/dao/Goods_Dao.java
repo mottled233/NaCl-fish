@@ -9,31 +9,31 @@ import java.util.ArrayList;
 import bean.Goods;
 import util.DBHelper;
 
-public class Item implements ItemDAO {
+public class Goods_Dao{
 
-	public Goods Item_getDdtailInf(int GID) {
+	public static Goods Item_getDdtailInf(int GID) {
 		// TODO 自动生成的方法存根
 		return null;
 	}
 
-	public ArrayList<Goods> Item_getRank(String Rank) {
+	public static ArrayList<Goods> Item_getRank(String Rank) {
 		// TODO 自动生成的方法存根
 		return null;
 	}
 
-	public ArrayList<Goods> Item_getListByKeyword(String[] keyword) {
+	public static ArrayList<Goods> Item_getListByKeyword(String[] keyword) {
 		// TODO 自动生成的方法存根
 		return null;
 	}
 
-	public ArrayList<Goods> Item_getListByClass(String category) {
+	public static ArrayList<Goods> Item_getListByClass(String category) {
 		// TODO 自动生成的方法存根
 		try {
 			Connection conn=DBHelper.getConnection();
 			Statement statement=conn.createStatement();
 			ResultSet rs;
 			String str;
-			ArrayList<bean.Order> result;
+			ArrayList<Goods> result =new ArrayList<Goods>();
 			
 			str="select * from goods where Gkind="+category;
 			rs=statement.executeQuery(str);
@@ -60,17 +60,17 @@ public class Item implements ItemDAO {
 		return null;
 	}
 
-	public ArrayList<String> Item_getCritisizes(int ItemID) {
+	public static ArrayList<String> Item_getCritisizes(int ItemID) {
 		// TODO 自动生成的方法存根
 		return null;
 	}
 
-	public void Item_Issue(Goods item) {
+	public static void Item_Issue(Goods item) {
 		// TODO 自动生成的方法存根
 
 	}
 
-	public void Item_LeaveStore(int ItemID) {
+	public static void Item_LeaveStore(int ItemID) {
 		// TODO 自动生成的方法存根
 
 	}
