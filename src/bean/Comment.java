@@ -12,11 +12,26 @@ public class Comment {
 	private String username;
 	private int gID;
 	private String replyname;
+	private String parentid;
 	private List<Comment> childList;
 	
 	public Comment(){
 		
 	}
+
+	
+	
+	public String getParentid() {
+		return parentid;
+	}
+
+
+
+	public void setParentid(String parentid) {
+		this.parentid = parentid;
+	}
+
+
 
 	public int getcID() {
 		return cID;
