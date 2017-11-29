@@ -25,12 +25,12 @@ public interface UserDAO {
 	 * */
 	public Users User_getInf(String User_ID);//初始化用户信息
 	/**
-	 * @see UserDAO#Rigist(Users) 注册用方法
+	 * @see UserDAO#Register(Users) 注册用方法
 	 * 
 	 * @param user 由表单信息所创建的用户对象
 	 * 
 	 * */
-	public void Rigist(Users user);
+	public void Register(Users user);
 	
 	/**
 	 * @see UserDAO#User_Update(Users) 更新用户信息
