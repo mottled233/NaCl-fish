@@ -70,7 +70,7 @@ public class User_DAO{
 		try {
 			Connection connection=DBHelper.getConnection();
 			Statement statement=connection.createStatement();
-			String str="Insert into users values("+user.getUsername()+","+user.getPassword()+","+user.getHeadImg()+","+user.getAddress()+","+user.getPhoneNumber()+","+user.getQq()+","+user.getEmail()+","+user.getBalance()+")";
+			String str="Insert into users values('"+user.getUsername()+"','"+user.getPassword()+"','"+user.getHeadImg()+"','"+user.getAddress()+"','"+user.getPhoneNumber()+"','"+user.getQq()+"','"+user.getEmail()+"','"+user.getBalance()+"')";
 			statement.executeUpdate(str);
 			statement.close();
 		} catch (SQLException e) {
@@ -84,7 +84,7 @@ public class User_DAO{
 		try {
 			Connection connection=DBHelper.getConnection();
 			Statement statement=connection.createStatement();
-			String str="Update users set Password="+user.getPassword()+",HeadImg="+user.getHeadImg()+",Address="+user.getAddress()+",PhoneNumber="+user.getPhoneNumber()+",QQ="+user.getQq()+",Email="+user.getEmail()+",Balance="+user.getBalance()+" where username="+user.getUsername();
+			String str="Update users set Password='"+user.getPassword()+"',HeadImg='"+user.getHeadImg()+"',Address='"+user.getAddress()+"',PhoneNumber='"+user.getPhoneNumber()+"',QQ='"+user.getQq()+"',Email='"+user.getEmail()+"',Balance='"+user.getBalance()+"' where username='"+user.getUsername()+"'";
 			
 			statement.executeUpdate(str);
 			statement.close();
