@@ -71,48 +71,48 @@ public class PostServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		
-		//为解析类提供配置信息 
-		DiskFileItemFactory factory = new DiskFileItemFactory(); 
-		//创建解析类的实例 
-		ServletFileUpload sfu = new ServletFileUpload(factory); 
-		//开始解析 
-		sfu.setFileSizeMax(1024*400); 
-		//每个表单域中数据会封装到一个对应的FileItem对象上 
-		List<FileItem> items;
-		try {
-			items = sfu.parseRequest(request);
-		} catch (FileUploadException e1) {
-			Log.e("上传文件失败");
-			return;
-		} 
-		//区分表单域 
-		for (int i = 0; i < items.size(); i++) { 
-			FileItem item = items.get(i); 
-			//isFormField为true，表示这不是文件上传表单域 
-			if(!item.isFormField()){ 
-				//获得存放文件的物理路径 
-				//upload下的某个文件夹 得到当前在线的用户 找到对应的文件夹 
-		
-				String path = "../image";
-				System.out.println(path); 
-				//获得文件名 
-				String fileName = item.getName(); 
-				//该方法在某些平台(操作系统),会返回路径+文件名 
-				fileName = fileName.substring(fileName.lastIndexOf("/")+1); 
-				Log.d(path+"/"+fileName);
-				File file = new File(path+"/"+fileName); 
-				if(!file.exists()){ 
-					try {
-						item.write(file);
-					} catch (Exception e) {
-						Log.e("上传文件失败");
-						
-						return;
-					} 
-				
-				} 
-			}
-		} 
+//		//为解析类提供配置信息 
+//		DiskFileItemFactory factory = new DiskFileItemFactory(); 
+//		//创建解析类的实例 
+//		ServletFileUpload sfu = new ServletFileUpload(factory); 
+//		//开始解析 
+//		sfu.setFileSizeMax(1024*400); 
+//		//每个表单域中数据会封装到一个对应的FileItem对象上 
+//		List<FileItem> items;
+//		try {
+//			items = sfu.parseRequest(request);
+//		} catch (FileUploadException e1) {
+//			Log.e("上传文件失败");
+//			return;
+//		} 
+//		//区分表单域 
+//		for (int i = 0; i < items.size(); i++) { 
+//			FileItem item = items.get(i); 
+//			//isFormField为true，表示这不是文件上传表单域 
+//			if(!item.isFormField()){ 
+//				//获得存放文件的物理路径 
+//				//upload下的某个文件夹 得到当前在线的用户 找到对应的文件夹 
+//		
+//				String path = "../image";
+//				System.out.println(path); 
+//				//获得文件名 
+//				String fileName = item.getName(); 
+//				//该方法在某些平台(操作系统),会返回路径+文件名 
+//				fileName = fileName.substring(fileName.lastIndexOf("/")+1); 
+//				Log.d(path+"/"+fileName);
+//				File file = new File(path+"/"+fileName); 
+//				if(!file.exists()){ 
+//					try {
+//						item.write(file);
+//					} catch (Exception e) {
+//						Log.e("上传文件失败");
+//						
+//						return;
+//					} 
+//				
+//				} 
+//			}
+//		} 
 		
 		
 		PrintWriter out = response.getWriter();
