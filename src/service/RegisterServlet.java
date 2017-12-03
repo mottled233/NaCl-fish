@@ -7,17 +7,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.Users;
-
 import dao.User_DAO;
-
-public class LoginServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public LoginServlet() {
+	public RegisterServlet() {
 		super();
 	}
 
@@ -41,7 +40,8 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		doPost(request, response);
 	}
 
 	/**
@@ -56,26 +56,29 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+
 		PrintWriter out = response.getWriter();
-		//用户名密码若为空
-		if(username==null||password==null){
-			out.println("Invalid username!");
-		}
-		//检验用户名密码是否正确
-		if(User_DAO.User_checkin(username, password)){
-			Users user = User_DAO.User_getInf(username);
-			request.getSession().setAttribute("user", user);
-			out.println("Login Success!");
+		Users user = new Users();
+		HttpSession session = request.getSession();
+		String username = request.getParameter("username");
+		user.setUsername(username);
+		user.setPassword(request.getParameter("password"));
+		user.setHeadImg(request.getParameter("headImg"));
+		user.setAddress(request.getParameter("address"));
+		user.setPhoneNumber(request.getParameter("phoneNumber"));
+		user.setQq(request.getParameter("qq"));
+		user.setEmail(request.getParameter("email"));
+		user.setBalance(0.00);
+		
+		if(User_DAO.User_getInf(username)!=null){
+			out.println("Register Failed:Username already exists!");
 		}else{
-			out.println("User not exists or Wrong Password");
+			User_DAO.Register(user);
+			out.println("Register Success!");
 		}
 		
 		out.flush();
 		out.close();
-		return;
 	}
 
 	/**

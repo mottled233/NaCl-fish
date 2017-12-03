@@ -7,17 +7,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import bean.Goods;
 import bean.Users;
+import dao.Goods_Dao;
 
-import dao.User_DAO;
 
-public class LoginServlet extends HttpServlet {
+public class DeleteGoodServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public LoginServlet() {
+	public DeleteGoodServlet() {
 		super();
 	}
 
@@ -42,6 +44,7 @@ public class LoginServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		doPost(request,response);
 	}
 
 	/**
@@ -56,26 +59,21 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+
 		PrintWriter out = response.getWriter();
-		//用户名密码若为空
-		if(username==null||password==null){
-			out.println("Invalid username!");
-		}
-		//检验用户名密码是否正确
-		if(User_DAO.User_checkin(username, password)){
-			Users user = User_DAO.User_getInf(username);
-			request.getSession().setAttribute("user", user);
-			out.println("Login Success!");
-		}else{
-			out.println("User not exists or Wrong Password");
-		}
+		int gid = Integer.parseInt(request.getParameter("in_good_id"));
+		Goods good = Goods_Dao.item_getGoods(gid);
+		String username = good.getOwner();
 		
+		Users user = (Users)request.getSession().getAttribute("user");
+		if(username.equals(user.getUsername())){
+			Goods_Dao.Item_LeaveStore(gid);
+			out.println(0);//Success
+		}else{
+			out.println(-1);//Failed
+		}
 		out.flush();
 		out.close();
-		return;
 	}
 
 	/**
