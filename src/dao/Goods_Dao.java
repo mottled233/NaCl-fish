@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.text.DefaultEditorKit.InsertBreakAction;
+
 import util.Log;
 
 import bean.*;
@@ -51,39 +53,10 @@ public class Goods_Dao{
 		}
 	}
 
-	public static Goods Item_getDetailInfo(int GID) {
-
+	public static GoodInfo Item_getDetailInfo(int GID) {
 		// TODO 自动生成的方法存根
-		try {
-			Connection conn = DBHelper.getConnection();
-			Statement statement = conn.createStatement();
-			ResultSet rs;
-			String str;
-			ArrayList<Goods> result = new ArrayList<Goods>();
 
-			str = "select * from goods where Gid=" + GID;
-
-			rs = statement.executeQuery(str);
-
-			Goods good = new Goods();
-			good.setgID(rs.getInt("Gid"));
-			good.setgImg(rs.getString("Gimg"));
-			good.setgKind(rs.getString("Gkind"));
-			good.setgLocation(rs.getString("Glocation"));
-			good.setgName(rs.getString("Gname"));
-			good.setgPrice(rs.getDouble("Price"));
-			good.setOwner(rs.getString("Owner"));
-			result.add(good);
-			rs.close();
-			statement.close();
-			conn.close();
-			return good;
-		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
-			System.out.println("GoodDetail create Fail!");
-			return null;
-		}
-
+		return null;
 	}
 
 
@@ -247,7 +220,8 @@ public class Goods_Dao{
 		return null;
 	}
 
-	public static void Item_Issue(Goods item) {
+	public static int Item_Issue(Goods item, GoodInfo detail) {
+		int gid = -1;
 		// TODO 自动生成的方法存根
 		try {
 			Connection conn = DBHelper.getConnection();
@@ -255,16 +229,20 @@ public class Goods_Dao{
 			ResultSet rs;
 			String str;
 
-			str = "insert into goods values=('" + item.getgID() + "," + item.getgName() + "," + item.getgPrice() + ","
-					+ item.getgKind() + "," + item.getOwner() + "," + item.getgLocation() + item.getgImg() + ")";
+			str = "insert into goods(gNmae,gPrice,gKind,Owner,gLocation,gImg) values=('"+ item.getgName() + "','" + item.getgPrice() + "','"
+					+ item.getgKind() + "','" + item.getOwner() + "','" + item.getgLocation() +"','"+ item.getgImg() + "')";
 			statement.executeUpdate(str);
-
+			rs = statement.getGeneratedKeys();
+			rs.next();
+			gid = rs.getInt(1);
+			
 			statement.close();
 			conn.close();
+			return gid;
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			System.out.println("Issue good Fail!");
-			return;
+			return -1;
 		}
 	}
 

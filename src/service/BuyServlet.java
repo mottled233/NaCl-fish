@@ -12,12 +12,12 @@ import javax.servlet.http.HttpSession;
 import bean.*;
 import dao.*;
 
-public class ConfirmService extends HttpServlet {
+public class BuyServlet extends HttpServlet {
 	public static final String PARAM_IN_ID = "in_good_id";
 	/**
 	 * Constructor of the object.
 	 */
-	public ConfirmService() {
+	public BuyServlet() {
 		super();
 	}
 
