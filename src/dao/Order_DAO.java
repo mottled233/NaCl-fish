@@ -25,8 +25,8 @@ public class Order_DAO {
 			str = "select * from goods where Gid=" + Item_ID;
 			rs = statement.executeQuery(str);
 
-			str = "Insert into order(Buyer,Seller,Transid,Ostatus,Gid) values(" + costumer_ID + ","
-					+ rs.getString("Owner") + ",-1,0," + Item_ID + ")";
+			str = "Insert into order(Buyer,Seller,Transid,Ostatus,Gid) values('" + costumer_ID + "','"
+					+ rs.getString("Owner") + "','-1,0','" + Item_ID + "')";
 			statement.executeUpdate(str);
 			rs.close();
 			statement.close();
@@ -50,7 +50,7 @@ public class Order_DAO {
 			ResultSet rs;
 			String str;
 
-			str = "select * from order where Buyer=" + User_ID + " OR Seller=" + User_ID;
+			str = "select * from order where Buyer='" + User_ID + "' OR Seller='" + User_ID+"'";
 			rs = statement.executeQuery(str);
 			while (rs.next()) {
 				bean.Order order = new bean.Order();
@@ -82,7 +82,7 @@ public class Order_DAO {
 			ResultSet rs;
 			String str;
 
-			str = "Update order set Transid=" + Sent_ID + ",Ostatus=1 where Oid=" + Order_ID;
+			str = "Update order set Transid='" + Sent_ID + "',Ostatus='1' where Oid='" + Order_ID+"'";
 			statement.executeUpdate(str);
 			statement.close();
 			conn.close();
@@ -106,7 +106,7 @@ public class Order_DAO {
 			ResultSet rs;
 			String str;
 
-			str = "select * from order where Oid="+Order_ID;
+			str = "select * from order where Oid='"+Order_ID+"'";
 			rs = statement.executeQuery(str);
 			bean.Order order = new bean.Order();
 			order.setBuyer(rs.getString("Buyer"));

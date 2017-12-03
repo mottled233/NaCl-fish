@@ -65,17 +65,17 @@ public class User_DAO{
 		return null;
 	}
 
-	public static void Rigist(Users user) {
+	public static void Register(Users user) {
 		// TODO 自动生成的方法存根
 		try {
 			Connection connection=DBHelper.getConnection();
 			Statement statement=connection.createStatement();
-			String str="Insert into users values("+user.getUsername()+","+user.getPassword()+","+user.getHeadImg()+","+user.getAddress()+","+user.getPhoneNumber()+","+user.getQq()+","+user.getEmail()+","+user.getBalance()+")";
+			String str="Insert into users values('"+user.getUsername()+"','"+user.getPassword()+"','"+user.getHeadImg()+"','"+user.getAddress()+"','"+user.getPhoneNumber()+"','"+user.getQq()+"','"+user.getEmail()+"','"+user.getBalance()+"')";
 			statement.executeUpdate(str);
 			statement.close();
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
-			System.out.println("SQL fail in Rigist");
+			System.out.println("SQL fail in Register");
 		}
 	}
 
@@ -84,7 +84,7 @@ public class User_DAO{
 		try {
 			Connection connection=DBHelper.getConnection();
 			Statement statement=connection.createStatement();
-			String str="Update users set Password="+user.getPassword()+",HeadImg="+user.getHeadImg()+",Address="+user.getAddress()+",PhoneNumber="+user.getPhoneNumber()+",QQ="+user.getQq()+",Email="+user.getEmail()+",Balance="+user.getBalance()+" where username="+user.getUsername();
+			String str="Update users set Password='"+user.getPassword()+"',HeadImg='"+user.getHeadImg()+"',Address='"+user.getAddress()+"',PhoneNumber='"+user.getPhoneNumber()+"',QQ='"+user.getQq()+"',Email='"+user.getEmail()+"',Balance='"+user.getBalance()+"' where username='"+user.getUsername()+"'";
 			
 			statement.executeUpdate(str);
 			statement.close();
@@ -93,7 +93,5 @@ public class User_DAO{
 			System.out.println("SQL fail in Update");
 		}
 	}
-		
-	
 
 }

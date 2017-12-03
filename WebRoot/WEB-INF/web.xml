@@ -8,6 +8,7 @@
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
+<<<<<<< HEAD
     <servlet-name>ConfirmPageController</servlet-name>
     <servlet-class>controller.ConfirmPageController</servlet-class>
   </servlet>
@@ -26,6 +27,15 @@
   <servlet-mapping>
     <servlet-name>ConfirmService</servlet-name>
     <url-pattern>/servlet/ConfirmService</url-pattern>
+=======
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>service.LoginServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/servlet/LoginServlet</url-pattern>
+>>>>>>> b677c054f696df027bebc889dc31b1025939f514
   </servlet-mapping>	
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
