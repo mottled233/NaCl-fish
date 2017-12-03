@@ -20,7 +20,7 @@ public class Goods_Dao{
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-		
+		String s="1";
 		String sql = "select from goods where gid=?";
 		try{
 			connection = DBHelper.getConnection();
