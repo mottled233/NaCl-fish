@@ -32,6 +32,7 @@ public class Order_DAO {
 			rs.close();
 			statement.close();
 			conn.close();
+			return 0;
 		} catch(SQLException e){
 			util.Log.e("获取数据时发生错误");
 			return -1;
@@ -44,7 +45,6 @@ public class Order_DAO {
 			}
 		}
 
-		return 0;
 	}
 
 	public static ArrayList<bean.Order> Order_getList(String User_ID, String category) {
@@ -73,6 +73,7 @@ public class Order_DAO {
 			rs.close();
 			statement.close();
 			conn.close();
+			return result;
 		} catch(SQLException e){
 			util.Log.e("获取数据时发生错误");
 			return null;
@@ -85,7 +86,6 @@ public class Order_DAO {
 			}
 		}
 
-		return result;
 	}
 
 	public static void Order_Sent(int Order_ID, String Sent_ID) {
@@ -104,9 +104,15 @@ public class Order_DAO {
 			statement.executeQuery();
 			statement.close();
 			conn.close();
-		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
-			System.out.println("Sent Fail!");
+		} catch(SQLException e){
+			util.Log.e("获取数据时发生错误");
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				util.Log.e("关闭数据库连接时发生错误");
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -118,14 +124,18 @@ public class Order_DAO {
 
 	public static bean.Order Order_getDetails(int Order_ID) {
 		// TODO 自动生成的方法存根
+		
+		Connection conn=null;
+		String sql="select * from order where Oid=?";
+		
+		
 		try {
-			Connection conn = DBHelper.getConnection();
-			Statement statement = conn.createStatement();
+			conn = DBHelper.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, Order_ID);
 			ResultSet rs;
-			String str;
 
-			str = "select * from order where Oid='"+Order_ID+"'";
-			rs = statement.executeQuery(str);
+			rs = statement.executeQuery();
 			bean.Order order = new bean.Order();
 			order.setBuyer(rs.getString("Buyer"));
 			order.setgID(rs.getInt("Gid"));
@@ -137,9 +147,16 @@ public class Order_DAO {
 			rs.close();
 			statement.close();
 			conn.close();
-		} catch (SQLException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
+		} catch(SQLException e){
+			util.Log.e("获取数据时发生错误");
+			return null;
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				util.Log.e("关闭数据库连接时发生错误");
+				e.printStackTrace();
+			}
 		}
 
 		return null;
