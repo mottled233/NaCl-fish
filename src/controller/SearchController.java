@@ -40,15 +40,14 @@ public class SearchController extends HttpServlet {
 		String[] keyword=prekey.split(" ");
 		
 		int currentPage=Integer.parseInt(request.getParameter("currentPage"));
-		int top_price=Integer.parseInt(request.getParameter("in_price_high"));
-		int upper_price=Integer.parseInt(request.getParameter("in_price_low"));
-		
-		
-		DataPage<Goods> result=Goods_Dao.Item_getListByKeyword(keyword,currentPage,44,top_price,upper_price);
+		String top=request.getParameter("in_price_high");
+		String upper=request.getParameter("in_price_low");
+		String param[]=new String[3];
+		param[0]="";
+		param[1]=upper;
+		param[2]=top;
+		DataPage<Goods> result=Goods_Dao.Item_getListByKeyword(keyword,currentPage,44,param);
 		session.setAttribute("select_page",result);
-		
-		
-		
 		
 		out.flush();
 		out.close();
