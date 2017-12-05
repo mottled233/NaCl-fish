@@ -47,7 +47,7 @@ public class Order_DAO {
 
 	}
 
-	public static ArrayList<bean.Order> Order_getList(String User_ID, String category) {
+	public static ArrayList<bean.Order> Order_getList(String User_ID) {
 		// TODO 自动生成的方法存根
 		ArrayList<bean.Order> result = new ArrayList<bean.Order>();
 		PreparedStatement statement=null;
