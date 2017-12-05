@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 import javax.swing.text.DefaultEditorKit.InsertBreakAction;
 
+import exception.BadInputException;
+
+import util.DataPage;
 import util.Log;
 
 import bean.*;
@@ -92,26 +95,27 @@ public class Goods_Dao{
 
 	public static ArrayList<Goods> Item_getRank(String Rank,int mode) {
 		Connection conn=null;
+		PreparedStatement statement=null;
 		// TODO 自动生成的方法存根
 		String str="select * from goods limit 1000";
 		switch(mode){
 		case 0://依据访问量
-			str="select * from goodinfo order by Gview limit 1000";
+			str="select * from goodinfo natural join goods wher GKind='"+Rank+"' order by Gview limit 1000";
 			break;
 		case 1://依据收藏量
 
-			str="select * from goodinfo order by Gcollect limit 1000";
+			str="select * from goodinfo natural join goods wher GKind='"+Rank+"' order by Gcollect limit 1000";
 			break;
 		case 2://依据点赞量
-			str="select * from goodinfo order by Gnice limit 1000";
+			str="select * from goodinfo natural join goods wher GKind='"+Rank+"' order by Gnice limit 1000";
 			break;
 		default:
-			str="select * from goodinfo order by Gview limit 1000";
+			str="select * from goodinfo natural join goods wher GKind='"+Rank+"' order by Gview limit 1000";
 			break;
 		}
 		try {
 			conn = DBHelper.getConnection();
-			PreparedStatement statement = conn.prepareStatement(str);
+			statement = conn.prepareStatement(str);
 			ResultSet rs;
 			ArrayList<Goods> result = new ArrayList<Goods>();
 
@@ -129,8 +133,6 @@ public class Goods_Dao{
 				result.add(good);
 			}
 			rs.close();
-			statement.close();
-			conn.close();
 			return result;
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
@@ -138,6 +140,7 @@ public class Goods_Dao{
 			return null;
 		}finally{
 			try {
+				statement.close();
 				conn.close();
 			} catch (SQLException e) {
 				util.Log.e("关闭数据库连接时发生错误");
@@ -148,22 +151,23 @@ public class Goods_Dao{
 		
 	}
 
-	public static ArrayList<Goods> Item_getListByKeyword(String[] keyword) {
+	public static DataPage<Goods> Item_getListByKeyword(String[] keyword,int currentPage,int recordPerPage,int top,int upper) {
 		Connection conn = null;
+		Statement statement=null;
+		ResultSet rs=null;
 		try {
 			conn = DBHelper.getConnection();
-			Statement statement = conn.createStatement();
-			ResultSet rs;
+			statement = conn.createStatement();
 			String str;
 			ArrayList<Goods> result = new ArrayList<Goods>();
 
 			str = "select * from goods where Gname like";
 
-			for (int i = 0; i < keyword.length - 1; i++) {
+			for (int i = 0; i < keyword.length; i++) {
 				str += "'%" + keyword[i] + "%' and";
 			}
-			str += "'%" + keyword[keyword.length] + "%'";
-
+			str+="gprice>"+top+"and gprice <"+upper+" ";
+			str += "limit"+(currentPage-1)*recordPerPage+","+currentPage*recordPerPage;
 			rs = statement.executeQuery(str);
 			while (rs.next()) {
 				Goods good = new Goods();
@@ -176,23 +180,33 @@ public class Goods_Dao{
 				good.setOwner(rs.getString("Owner"));
 				result.add(good);
 			}
-			rs.close();
-			statement.close();
-			conn.close();
+			str="select count(*) from ("+str+")";
+			rs = statement.executeQuery(str);
+			rs.next();
+			int total = rs.getInt(0);
+			DataPage<Goods> res=new DataPage<Goods>(total,recordPerPage,currentPage);
+			res.setList(result);
+			return res;
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			util.Log.e("关闭数据库连接时发生错误");
 			return null;
-		}finally{
+		}catch(BadInputException e){
+			util.Log.e("输入错误");
+			return null;
+		}
+		finally{
 			try {
+				rs.close();
+				statement.close();
 				conn.close();
+
 			} catch (SQLException e) {
 				util.Log.e("关闭数据库连接时发生错误");
 				e.printStackTrace();
 			}
 		}
 
-		return null;
 	}
 
 	public static ArrayList<Goods> Item_getListByClass(String category) {

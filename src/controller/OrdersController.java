@@ -1,4 +1,4 @@
-package service;
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,7 +15,7 @@ import dao.Order_DAO;
 
 import bean.*;
 
-public class OrdersServlet extends HttpServlet {
+public class OrdersController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,11 +39,10 @@ public class OrdersServlet extends HttpServlet {
 		
 		String username=user.getUsername();
 		ArrayList<Order> result=Order_DAO.Order_getList(username);
-		if(result.size()==0){
-			out.println("订单为空");
-		}else{
-			out.println("订单数目为："+result.size());
-		}
+		session.setAttribute("order_list", result);
+
+		
+		
 		out.flush();
 		out.close();
 	

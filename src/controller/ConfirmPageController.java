@@ -69,7 +69,7 @@ public class ConfirmPageController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("counter_good", goods);
-
+		
 	}
 
 	/**
