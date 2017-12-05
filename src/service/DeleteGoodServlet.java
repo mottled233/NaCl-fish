@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import bean.Goods;
 import bean.Users;
-import dao.Goods_Dao;
+import dao.Goods_DAO;
 
 
 public class DeleteGoodServlet extends HttpServlet {
@@ -62,12 +62,12 @@ public class DeleteGoodServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		int gid = Integer.parseInt(request.getParameter("in_good_id"));
-		Goods good = Goods_Dao.item_getGoods(gid);
+		Goods good = Goods_DAO.item_getGoods(gid);
 		String username = good.getOwner();
 		
 		Users user = (Users)request.getSession().getAttribute("user");
 		if(username.equals(user.getUsername())){
-			Goods_Dao.Item_LeaveStore(gid);
+			Goods_DAO.Item_LeaveStore(gid);
 			out.println(0);//Success
 		}else{
 			out.println(-1);//Failed

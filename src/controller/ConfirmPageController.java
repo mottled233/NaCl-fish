@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.Goods_Dao;
+import dao.Goods_DAO;
 
 import bean.Goods;
 import bean.Users;
@@ -65,7 +65,7 @@ public class ConfirmPageController extends HttpServlet {
 			throws ServletException, IOException {
 
 		int goodID = Integer.parseInt(request.getParameter(PARAM_IN_ID));
-		Goods goods = Goods_Dao.item_getGoods(goodID);
+		Goods goods = Goods_DAO.item_getGoods(goodID);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("counter_good", goods);

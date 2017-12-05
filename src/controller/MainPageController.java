@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import bean.Goods;
 import bean.Users;
-import dao.Goods_Dao;
+import dao.Goods_DAO;
 import dao.Order_DAO;
 
 public class MainPageController extends HttpServlet {
@@ -37,11 +37,11 @@ public class MainPageController extends HttpServlet {
 		String uname = user.getUsername();
 		String[] categorys={"数码","生鲜","服装"};
 		for(int i=0;i<categorys.length;i++){
-			ArrayList<Goods> Rank1=Goods_Dao.Item_getRank(categorys[i], 1);
+			ArrayList<Goods> Rank1=Goods_DAO.Item_getRank(categorys[i], 1);
 			session.setAttribute("main_views_"+categorys[i], Rank1);
-			ArrayList<Goods> Rank2=Goods_Dao.Item_getRank(categorys[i], 2);
+			ArrayList<Goods> Rank2=Goods_DAO.Item_getRank(categorys[i], 2);
 			session.setAttribute("main_collects_"+categorys[i], Rank1);
-			ArrayList<Goods> Rank3=Goods_Dao.Item_getRank(categorys[i], 3);
+			ArrayList<Goods> Rank3=Goods_DAO.Item_getRank(categorys[i], 3);
 			session.setAttribute("main_nices_"+categorys[i], Rank1);
 		}
 		

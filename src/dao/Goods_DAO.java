@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.text.DefaultEditorKit.InsertBreakAction;
 
@@ -17,7 +19,7 @@ import util.Log;
 import bean.*;
 import util.DBHelper;
 
-public class Goods_Dao{
+public class Goods_DAO{
 	
 	public static Goods item_getGoods(int GID){
 		Connection connection = null;
@@ -56,6 +58,40 @@ public class Goods_Dao{
 		}
 	}
 
+	public static List<Goods> item_getGoods_bycondition(List<Map<String,Object>> params) throws SQLException{
+		List<Goods> resultGoods = new ArrayList<Goods>();
+		
+		Connection con = null;
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("select * from goods where 1=1 ");
+		
+		if(params != null && params.size( )> 0){
+			for (int i = 0; i < params.size(); i++) {
+				Map<String,Object> map = params.get(i);
+				sb.append("and "+ map.get("name") + " " + map.get("rela") + " " + map.get("value"));
+			}
+		}
+		PreparedStatement ptmt = con.prepareStatement(sb.toString());
+		ResultSet rs = ptmt.executeQuery();
+		
+		Goods good = null;
+		while(rs.next()){
+			good = new Goods();
+			good.setgID(rs.getInt("Gid"));
+			good.setgImg(rs.getString("Gimg"));
+			good.setgKind(rs.getString("Gkind"));
+			good.setgLocation(rs.getString("Glocation"));
+			good.setgName(rs.getString("Gname"));
+			good.setgPrice(rs.getDouble("Price"));
+			good.setOwner(rs.getString("Owner"));
+			
+			resultGoods.add(good);
+		}
+		
+		return resultGoods;
+	}
+	
 	public static GoodInfo Item_getDetailInfo(int GID) {
 		// TODO 自动生成的方法存根
 		Connection connection = null;
