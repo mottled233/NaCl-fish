@@ -62,15 +62,15 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		//用户名密码若为空
 		if(username==null||password==null){
-			out.println("Invalid username!");
+			out.println("failed");
 		}
 		//检验用户名密码是否正确
 		if(User_DAO.User_checkin(username, password)){
 			Users user = User_DAO.User_getInf(username);
 			request.getSession().setAttribute("user", user);
-			out.println("Login Success!");
+			out.println("success!");
 		}else{
-			out.println("User not exists or Wrong Password");
+			out.println("failed");
 		}
 		
 		out.flush();

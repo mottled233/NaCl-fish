@@ -64,16 +64,12 @@ public class ConfirmPageController extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html");
 		int goodID = Integer.parseInt(request.getParameter(PARAM_IN_ID));
 		Goods goods = Goods_Dao.item_getGoods(goodID);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("counter_good", goods);
-		PrintWriter out = response.getWriter();
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+
 	}
 
 	/**

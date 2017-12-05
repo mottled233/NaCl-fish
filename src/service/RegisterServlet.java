@@ -41,7 +41,6 @@ public class RegisterServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		doPost(request, response);
 	}
 
 	/**
@@ -71,10 +70,10 @@ public class RegisterServlet extends HttpServlet {
 		user.setBalance(0.00);
 		
 		if(User_DAO.User_getInf(username)!=null){
-			out.println("Register Failed:Username already exists!");
+			out.println("exist");
 		}else{
 			User_DAO.Register(user);
-			out.println("Register Success!");
+			out.println("success");
 		}
 		
 		out.flush();
