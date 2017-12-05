@@ -151,24 +151,45 @@ public class Goods_Dao{
 		
 	}
 
-	public static DataPage<Goods> Item_getListByKeyword(String[] keyword,int currentPage,int recordPerPage,int top,int upper) {
+	public static DataPage<Goods> Item_getListByKeyword(String[] keyword,int currentPage,int recordPerPage,String[] params) {
 		Connection conn = null;
-		Statement statement=null;
+		PreparedStatement statement=null;
 		ResultSet rs=null;
+		
+		
+		
 		try {
 			conn = DBHelper.getConnection();
-			statement = conn.createStatement();
 			String str;
 			ArrayList<Goods> result = new ArrayList<Goods>();
-
-			str = "select * from goods where Gname like";
-
-			for (int i = 0; i < keyword.length; i++) {
-				str += "'%" + keyword[i] + "%' and";
+			str = "select * from goods where true";
+			
+			if (keyword.length!=0) {
+				
+				for (int i = 0; i < keyword.length; i++) {
+					str += " and '%" + keyword[i] + "%'";
+				}
 			}
-			str+="gprice>"+top+"and gprice <"+upper+" ";
+			if(params[0]!=null&&!params[0].equals("")){
+				str+="and gkind like ? ";
+			}
+			if(params[1]!=null&&!params[1].equals("")){
+				str+="and gprice>?";
+			}
+			if(params[2]!=null&&!params[2].equals("")){
+				str+="and gprice<?";
+			}
+			
+			
+			
 			str += "limit"+(currentPage-1)*recordPerPage+","+currentPage*recordPerPage;
-			rs = statement.executeQuery(str);
+			statement=conn.prepareStatement(str);
+			
+			
+			statement.setString(1,params[0]);
+			statement.setDouble(2, Double.parseDouble(params[1]));
+			statement.setDouble(3, Double.parseDouble(params[2]));
+			rs = statement.executeQuery();
 			while (rs.next()) {
 				Goods good = new Goods();
 				good.setgID(rs.getInt("Gid"));
@@ -180,8 +201,34 @@ public class Goods_Dao{
 				good.setOwner(rs.getString("Owner"));
 				result.add(good);
 			}
-			str="select count(*) from ("+str+")";
-			rs = statement.executeQuery(str);
+			str = "select count(*) from goods where true";
+			
+			if (keyword.length!=0) {
+				
+				for (int i = 0; i < keyword.length; i++) {
+					str += " and '%" + keyword[i] + "%'";
+				}
+			}
+			if(params[0]!=null&&!params[0].equals("")){
+				str+="and gkind like ? ";
+			}
+			if(params[1]!=null&&!params[1].equals("")){
+				str+="and gprice>?";
+			}
+			if(params[2]!=null&&!params[2].equals("")){
+				str+="and gprice<?";
+			}
+			
+			
+			
+			str += "limit"+(currentPage-1)*recordPerPage+","+currentPage*recordPerPage;
+			statement=conn.prepareStatement(str);
+			
+			
+			statement.setString(1,params[0]);
+			statement.setDouble(2, Double.parseDouble(params[1]));
+			statement.setDouble(3, Double.parseDouble(params[2]));
+			rs = statement.executeQuery();
 			rs.next();
 			int total = rs.getInt(0);
 			DataPage<Goods> res=new DataPage<Goods>(total,recordPerPage,currentPage);
