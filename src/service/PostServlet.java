@@ -16,7 +16,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory; 
 import org.apache.commons.fileupload.servlet.ServletFileUpload; 
 
-import dao.Goods_Dao;
+import dao.Goods_DAO;
 
 import util.Log;
 
@@ -132,7 +132,7 @@ public class PostServlet extends HttpServlet {
 		detail.setgInfo(request.getParameter("in_info"));
 		detail.setgNice(0);
 		
-		Goods_Dao.Item_Issue(good, detail);
+		Goods_DAO.Item_Issue(good, detail);
 		
 		
 		out.flush();

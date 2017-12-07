@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import util.DataPage;
 
-import dao.Goods_Dao;
+import dao.Goods_DAO;
 
 import bean.Goods;
 import bean.Users;
@@ -46,7 +46,7 @@ public class SearchController extends HttpServlet {
 		param[0]="";
 		param[1]=upper;
 		param[2]=top;
-		DataPage<Goods> result=Goods_Dao.Item_getListByKeyword(keyword,currentPage,44,param);
+		DataPage<Goods> result=Goods_DAO.Item_getListByKeyword(keyword,currentPage,44,param);
 		session.setAttribute("select_page",result);
 		
 		out.flush();
