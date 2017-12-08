@@ -5,73 +5,92 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <display-name></display-name>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-
-    <servlet-name>ConfirmPageController</servlet-name>
-    <servlet-class>controller.ConfirmPageController</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>ConfirmService</servlet-name>
-    <servlet-class>service.ConfirmService</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>service.LoginServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>PostGoodService</servlet-name>
-    <servlet-class>service.PostGoodService</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>RegisterServlet</servlet-name>
-    <servlet-class>service.RegisterServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>DeleteGoodServlet</servlet-name>
-    <servlet-class>service.DeleteGoodServlet</servlet-class>
-  </servlet>
-
-
-
-
-  <servlet-mapping>
-    <servlet-name>ConfirmPageController</servlet-name>
-    <url-pattern>/servlet/ConfirmPageController</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ConfirmService</servlet-name>
-    <url-pattern>/servlet/ConfirmService</url-pattern>
-  </servlet-mapping>
-
-
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/servlet/LoginServlet</url-pattern>
-
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>PostGoodService</servlet-name>
-    <url-pattern>/servlet/PostGoodService</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>RegisterServlet</servlet-name>
-    <url-pattern>/servlet/RegisterServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>DeleteGoodServlet</servlet-name>
-    <url-pattern>/servlet/DeleteGoodServlet</url-pattern>
-  </servlet-mapping>	
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+    <servlet>
+        <servlet-name>BuyServlet</servlet-name>
+        <servlet-class>service.BuyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteGoodsServlet</servlet-name>
+        <servlet-class>service.DeleteGoodServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BuyServlet</servlet-name>
+        <url-pattern>/servlet/BuyServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteGoodsServlet</servlet-name>
+        <url-pattern>/servlet/DeleteGoodsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>service.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/servlet/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PostServlet</servlet-name>
+        <servlet-class>service.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>service.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/servlet/RegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/servlet/PostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ConfirmPageController</servlet-name>
+        <servlet-class>controller.ConfirmPageController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ConfirmPageController</servlet-name>
+        <url-pattern>/servlet/ConfirmPageController</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DetailPageController</servlet-name>
+        <servlet-class>controller.DetailPageController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DetailPageController</servlet-name>
+        <url-pattern>/servlet/DetailPageController</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>MainPageController</servlet-name>
+        <servlet-class>controller.MainPageController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainPageController</servlet-name>
+        <url-pattern>/servlet/MainPageController</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>OrdersController</servlet-name>
+        <servlet-class>controller.OrdersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrdersController</servlet-name>
+        <url-pattern>/servlet/OdersController</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SearchController</servlet-name>
+        <servlet-class>controller.SearchController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchController</servlet-name>
+        <url-pattern>/servlet/SearchController</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>SellReleaseController</servlet-name>
+        <servlet-class>controller.SellReleaseController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SellReleaseController</servlet-name>
+        <url-pattern>/servlet/SellReleaseController</url-pattern>
+    </servlet-mapping>
 </web-app>
