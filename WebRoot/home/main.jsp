@@ -36,8 +36,13 @@ ArrayList<Goods> rank3=(ArrayList<Goods>)request.getSession().getAttribute("main
 				<ul class="message-l">
 					<div class="topMessage">
 						<div class="menu-hd">
-							<a href="./login.html" target="_top" class="h">亲，请登录</a>
-							<a href="./register.html" target="_top">免费注册</a>
+							<%if(user==null){ %>
+								<a href="#" target="_top" class="h">亲，请登录</a>
+								<a href="#" target="_top">免费注册</a>
+							<%}else{ %>
+								<a href="#" target="_top" class="h">欢迎<%user.getUsername(); %></a>
+								<a href="#" target="_top">我的账户</a>
+							<%} %>
 						</div>
 					</div>
 				</ul>
