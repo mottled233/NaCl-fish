@@ -1,3 +1,12 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="bean.*" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+Users u = (Users)session.getAttribute("user");
+Goods g = (Goods)session.getAttribute("counter_good");
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -25,8 +34,7 @@
 			<ul class="message-l">
 				<div class="topMessage">
 					<div class="menu-hd">
-						<a href="#" target="_top" class="h">亲，请登录</a>
-						<a href="#" target="_top">免费注册</a>
+						<a href="#" target="_top" class="h">欢迎，<%=u.getUsername() %></a>
 					</div>
 				</div>
 			</ul>
@@ -37,11 +45,7 @@
 				<div class="topMessage my-shangcheng">
 					<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
 				</div>
-				<div class="topMessage mini-cart">
-					<div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
-				</div>
-				<div class="topMessage favorite">
-					<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+
 			</ul>
 			</div>
 
@@ -79,17 +83,14 @@
 									<div class="user DefaultAddr">
 
 										<span class="buy-address-detail">   
-                   <span class="buy-user">艾迪 </span>
-										<span class="buy-phone">15888888888</span>
+                   <span class="buy-user"><%=u.getUsername() %> </span>
+										<span class="buy-phone"><%=u.getPhoneNumber() %></span>
 										</span>
 									</div>
 									<div class="default-address DefaultAddr">
 										<span class="buy-line-title buy-line-title-type">收货地址：</span>
 										<span class="buy--address-detail">
-								   <span class="province">湖北</span>省
-										<span class="city">武汉</span>市
-										<span class="dist">洪山</span>区
-										<span class="street">雄楚大道666号(中南财经政法大学)</span>
+								   <%=u.getAddress() %>
 										</span>
 
 										</span>
@@ -160,7 +161,7 @@
 													</div>
 													<div class="item-info">
 														<div class="item-basic-info">
-															<a href="#" class="item-title J_MakePoint" data-point="tbcart.8.11">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</a>
+															<a href="#" class="item-title J_MakePoint" data-point="tbcart.8.11"><%=g.getgName() %></a>
 														</div>
 													</div>
 												</li>
@@ -173,7 +174,7 @@
 												<li class="td td-price">
 													<div class="item-price price-promo-promo">
 														<div class="price-content">
-															<em class="J_Price price-now">39.00</em>
+															<em class="J_Price price-now"><%=g.getgPrice() %></em>
 														</div>
 													</div>
 												</li>
@@ -190,7 +191,7 @@
 											</li>
 											<li class="td td-sum">
 												<div class="td-inner">
-													<em tabindex="0" class="J_ItemSum number">117.00</em>
+													<em tabindex="0" class="J_ItemSum number"><%=g.getgPrice() %></em>
 												</div>
 											</li>
 											<li class="td td-oplist">
@@ -209,8 +210,6 @@
 							</tr>
 							<div class="clear"></div>
 							</div>
-
-							
 							</div>
 							<div class="clear"></div>
 							<div class="pay-total">
@@ -233,7 +232,7 @@
 							<!--含运费小计 -->
 							<div class="buy-point-discharge ">
 								<p class="price g_price ">
-									合计（含运费） <span>¥</span><em class="pay-sum">244.00</em>
+									合计（含运费） <span>¥</span><em class="pay-sum"><%=g.getgPrice() %></em>
 								</p>
 							</div>
 
@@ -243,7 +242,7 @@
 									<div class="box">
 										<div tabindex="0" id="holyshit267" class="realPay"><em class="t">实付款：</em>
 											<span class="price g_price ">
-                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee">244.00</em>
+                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee"><%=g.getgPrice() %></em>
 											</span>
 										</div>
 
@@ -252,18 +251,14 @@
 											<p class="buy-footer-address">
 												<span class="buy-line-title buy-line-title-type">寄送至：</span>
 												<span class="buy--address-detail">
-								   <span class="province">湖北</span>省
-												<span class="city">武汉</span>市
-												<span class="dist">洪山</span>区
-												<span class="street">雄楚大道666号(中南财经政法大学)</span>
-												</span>
+								   					<%=u.getAddress() %>
 												</span>
 											</p>
 											<p class="buy-footer-address">
 												<span class="buy-line-title">收货人：</span>
 												<span class="buy-address-detail">   
-                                         <span class="buy-user">艾迪 </span>
-												<span class="buy-phone">15871145629</span>
+                                         <span class="buy-user"><%=u.getUsername() %> </span>
+												<span class="buy-phone"><%=u.getPhoneNumber() %></span>
 												</span>
 											</p>
 										</div>
@@ -360,75 +355,22 @@
 			</div>
 
 			<div class="clear"></div>
-			<script>
 			
+			<script>
+				var goodid="<%= g.getgID()%>";
 				
 			    $(document).ready(function(){
-			        $(".btn-trash").click(function(e){
-			            var entity;
-			            if($(e.target).attr("index")==1)
-			                entity = $(e.target).parent().parent().parent().children();
-			            else
-			                entity = $(e.target).parent().parent().children();
-			
-			            var tr0 = entity.eq(0);
-			            var tr1 = entity.eq(1);
-			            select_tr = tr0.parent();
-			            delete_cid = (tr0.html());
-			            delete_cno = (tr1.html());
-			
-			            $('#deleteModal').modal('show');
-			        });
-			
-			        $("#confirm_delete_btn").click(function(e){
-			            $.post("servlet/DeleteCourse",
-			                    {<%= DeleteCourse.PARAM_NAME_CID%>:delete_cid,<%= DeleteCourse.PARAM_NAME_CNO%>:delete_cno},
+			        $("#J_Go").click(function(e){
+			             $.post("servlet/DeleteCourse",
+			                    {in_good_id:goodid},
 			                    function(data,status){
-			                        if(data=="success") {
-			                        	
-			                            select_tr.remove();
-			                            $("#deleteModal").modal('hide');
-			                            $("#deleteSuccessModal").modal('show');
+			                        if(data.indexOf("-1")!=-1) {
+			                        	alert("购买失败");
 			                        }else{
-			                            $("#dsm_p").text("删除失败！");
-			                            $("#deleteModal").modal('hide');
-			                            $("#deleteSuccessModal").modal('show');
+			                            alert("购买成功！");
 			                        }
 			                    });
 			        });
-			
-			        var sc_cid;
-			        var sc_cno;
-			        //var course;
-			        $("#sub").click(function(e){
-			
-			            sc_cid = $("#courseInfo_cid").val();
-			            sc_cno = $("#courseInfo_cno").val();
-			
-			            if(!(sc_cid==null||sc_cid==""||sc_cno==null||sc_cno=="")){
-			                $.post("servlet/SelectCourse",
-			                	{cid:sc_cid,cno:sc_cno},
-			               		function(data,status){
-				                	
-				                    if(data!=null&&data!="") {
-				                        if(data=="exists"){
-				                            $("#dsm_p").text("课程已选中，无法重复选取！");
-				                            $("#deleteSuccessModal").modal('show');
-				                        }else if(data=="notexists"){
-				                            $("#dsm_p").text("课程不存在！");
-				                            $("#deleteSuccessModal").modal('show');
-				                        }else if(data=="noroom") {
-				                            $("#dsm_p").text("课程容量不足！");
-				                            $("#deleteSuccessModal").modal('show');
-				                        }else{
-				                        	
-				                        }
-			
-			                    	}
-			                	});
-			            	}
-			        	});
-						
 			
 			
 			    });

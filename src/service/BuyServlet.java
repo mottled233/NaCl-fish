@@ -63,9 +63,20 @@ public class BuyServlet extends HttpServlet {
 		int goodid = Integer.parseInt(request.getParameter(PARAM_IN_ID));
 		Users user = (Users) session.getAttribute("user");
 		String uname = user.getUsername();
-		
+		Goods g = Goods_DAO.item_getGoods(goodid);
+		if(user.getBalance()<g.getgPrice())
+		{
+			out.println("-1");
+			out.flush();
+			out.close();
+			return;
+		}
 		int newOrder = Order_DAO.Order_Create(uname, goodid);
+		if(newOrder!=-1){
+			user.setBalance(user.getBalance()-g.getgPrice());
+		}
 		out.println(newOrder);
+		
 		
 		out.flush();
 		out.close();

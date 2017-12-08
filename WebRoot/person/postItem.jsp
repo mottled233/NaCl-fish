@@ -1,3 +1,8 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html>
 
@@ -83,7 +88,7 @@
 					<div class="user-info">
 						<!--标题 -->
 						<div class="am-cf am-padding">
-							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">个人资料</strong> / <small>Personal&nbsp;information</small></div>
+							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">发布物品</strong> / <small>发布新物品</small></div>
 						</div>
 						<hr/>
 
@@ -95,7 +100,7 @@
 								<img class="am-circle am-img-thumbnail" src="../images/getAvatar.do.jpg" alt="" />
 							</div>
 
-							<p class="am-form-help">头像</p>
+							<p class="am-form-help">图片</p>
 
 							<div class="info-m">
 								<div><b>点击上传图片</b></div>
@@ -108,7 +113,7 @@
 							<form class="am-form am-form-horizontal">
 
 								<div class="am-form-group">
-									<label for="user-name2" class="am-form-label">物品名称</label>
+									<label for="p_goods_name" class="am-form-label">物品名称</label>
 									<div class="am-form-content">
 										<input type="text" id="p_goods_name" placeholder="物品名称">
                                           <small>名称长度不能超过40个汉字</small>
@@ -116,7 +121,7 @@
 								</div>
 
 								<div class="am-form-group">
-									<label for="user-name" class="am-form-label">物品详情</label>
+									<label for="p_goods_detail" class="am-form-label">物品详情</label>
 									<div class="am-form-content">
 										<textarea id="p_goods_detail" rows="" cols=""></textarea>
                                          
@@ -124,16 +129,16 @@
 								</div>
 
 								<div class="am-form-group">
-									<label for="user-name2" class="am-form-label">物品价格</label>
+									<label for="p_goods_price" class="am-form-label">物品价格</label>
 									<div class="am-form-content">
-										<input type="text" id="p_goods_kind" placeholder="价格">
+										<input type="text" id="p_goods_price" placeholder="价格">
 									</div>
 								</div>
 
 								<div class="am-form-group">
 									<label for="user-birth" class="am-form-label">物品类别</label>
 									<div class="am-form-content birth">
-										<div class="birth-select">
+										<div class="p_kind_select">
 											
 											<select data-am-selected>
 												<option value="电子数码">电子数码</option>
@@ -151,7 +156,7 @@
 								<div class="am-form-group">
 									<label for="user-phone" class="am-form-label">发货地址</label>
 									<div class="am-form-content">
-										<input id="user-phone" placeholder="发货地址" type="text">
+										<input id="p_goods_adress" placeholder="发货地址" type="text">
 
 									</div>
 								</div>
@@ -202,7 +207,35 @@
 
 			</aside>
 		</div>
+<script type="text/javascript">
+    $("#register_btn").click(function(e){
+        var name = $("#p_goods_name").val();
+        var detail = $("#p_goods_detail").val();
+        var kind = $("#p_goods_kind").val();
+        var price = $("#p_goods_price").val();
+        var address = $("#p_goods_address").val();
+		var jpg = "../images/logobig.png";
+		
+        if(!(name==null||name==""||detail==null||detail==""||kind==null||kind==""||price==null||price==""||address==null||address=="")){
+            $.post("../servlet/PostServlet",
+                {in_gname:name, in_gprice:price, in_gkind:kind, in_glocation:address, in_gimg:jpg, in_info:detail},
+                function(data,status){
+                    var res = "提交失败，请联系管理员qq:"
+                    if(data!=null&&data!="") {
+                        if(data.indexOf("-1")!=-1){
+                            res = "提交失败";
+                        }else{
+                            res = "提交成功";
+                        }
 
+                    }
+                    alert(res);
+                });
+        }else{
+            alert("输入不能为空或密码长度太短（大于六位）！");
+        }
+    });
+</script>
 	</body>
 
 </html>

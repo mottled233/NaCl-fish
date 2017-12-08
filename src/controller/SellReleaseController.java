@@ -65,11 +65,7 @@ public class SellReleaseController extends HttpServlet{
 		}
 		List<GoodInfo> goodinfo = null;
 		for(int i = 0 ; i < resultGoods.size();i++){
-			if(resultGoods != null){
 			goodinfo.add(Goods_DAO.Item_getDetailInfo(resultGoods.get(i).getgID()));
-			} else{
-				System.out.println("该用户没有发布商品！");
-			}
 		}
 		
 		HttpSession session = request.getSession();
