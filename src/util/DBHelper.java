@@ -9,10 +9,10 @@ import util.Log;
 public class DBHelper {
 	
 	private static final String driver = "com.mysql.jdbc.Driver";
-	// localhostÖ¸±¾»ú£¬Ò²¿ÉÒÔÓÃ±¾µØipµØÖ·´úÌæ£¬3306ÎªMySQLÊý¾Ý¿âµÄÄ¬ÈÏ¶Ë¿ÚºÅ£¬¡°user¡±ÎªÒªÁ¬½ÓµÄÊý¾Ý¿âÃû
-	private static final String url = "jdbc:mysql://localhost:3306/sc_sys";
+	// localhostÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ipï¿½ï¿½Ö·ï¿½ï¿½ï¿½æ£¬3306ÎªMySQLï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ä¬ï¿½Ï¶Ë¿ÚºÅ£ï¿½ï¿½ï¿½userï¿½ï¿½ÎªÒªï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
+	private static final String url = "jdbc:mysql://localhost:3306/naclfish";
 	
-	// ÌîÈëÊý¾Ý¿âµÄÓÃ»§Ãû¸úÃÜÂë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private static final String username = "root";
 	private static final String password = "";
 	
@@ -21,13 +21,13 @@ public class DBHelper {
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
-			Log.e("Êý¾Ý¿âÁ¬½ÓÊ§°Ü£¡");
+			Log.e("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 			e.printStackTrace();
-		}// ¼ÓÔØÇý¶¯³ÌÐò£¬´Ë´¦ÔËÓÃÒþÊ½×¢²áÇý¶¯³ÌÐòµÄ·½·¨
+		}// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò£¬´Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 		try{
-			con = DriverManager.getConnection(url, username, password);// ´´½¨Á¬½Ó¶ÔÏó
+			con = DriverManager.getConnection(url, username, password);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
 		}catch(Exception e){
-			Log.e("Êý¾Ý¿â³õÊ¼»¯Ê±Óöµ½ÎÊÌâ");
+			Log.e("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ê¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		}
 		return con;
