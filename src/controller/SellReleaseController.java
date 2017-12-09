@@ -22,7 +22,7 @@ import bean.Users;
 
 public class SellReleaseController extends HttpServlet{
 
-	public static final String PARAM_USER_ID = "user_id";
+	public static final String PARAM_OWNER= "owner_name";
 	
 	public static final String PARAM_HAVE_LIST = "have_list";
 	public static final String PARAM_HAVE_LIST_INFO = "have_list_info";
@@ -52,9 +52,9 @@ public class SellReleaseController extends HttpServlet{
 		
 		List<Map<String,Object>> params = new ArrayList<Map<String,Object>>();
 		Map<String,Object> param = new HashMap<String, Object>();
-		param.put("name", "User_ID");
+		param.put("name", "Owner");
 		param.put("rela", "=");
-		param.put("value", request.getParameter(PARAM_USER_ID));
+		param.put("value", request.getParameter(PARAM_OWNER));
 		params.add(param);
 		List<Goods> resultGoods = null;
 		try {

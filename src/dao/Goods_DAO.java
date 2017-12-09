@@ -61,7 +61,7 @@ public class Goods_DAO{
 	public static List<Goods> item_getGoods_bycondition(List<Map<String,Object>> params) throws SQLException{
 		List<Goods> resultGoods = new ArrayList<Goods>();
 		
-		Connection con = null;
+		Connection con = DBHelper.getConnection();
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("select * from goods where 1=1 ");
@@ -69,7 +69,7 @@ public class Goods_DAO{
 		if(params != null && params.size( )> 0){
 			for (int i = 0; i < params.size(); i++) {
 				Map<String,Object> map = params.get(i);
-				sb.append("and "+ map.get("name") + " " + map.get("rela") + " " + map.get("value"));
+				sb.append("and "+ map.get("name") + " " + map.get("rela") + " " + map.get("'value'"));
 			}
 		}
 		PreparedStatement ptmt = con.prepareStatement(sb.toString());
