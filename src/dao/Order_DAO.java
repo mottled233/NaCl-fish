@@ -32,13 +32,13 @@ public class Order_DAO {
 			conn.close();
 			return 0;
 		} catch(SQLException e){
-			util.Log.e("»ñÈ¡Êý¾ÝÊ±·¢Éú´íÎó");
+			util.Log.e("ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			return -1;
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("¹Ø±ÕÊý¾Ý¿âÁ¬½ÓÊ±·¢Éú´íÎó");
+				util.Log.e("ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 				e.printStackTrace();
 			}
 		}
@@ -46,7 +46,7 @@ public class Order_DAO {
 	}
 
 	public static ArrayList<bean.Order> Order_getList(String User_ID) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		ArrayList<bean.Order> result = new ArrayList<bean.Order>();
 		PreparedStatement statement=null;
 		Connection conn=null;
@@ -73,13 +73,13 @@ public class Order_DAO {
 			conn.close();
 			return result;
 		} catch(SQLException e){
-			util.Log.e("»ñÈ¡Êý¾ÝÊ±·¢Éú´íÎó");
+			util.Log.e("ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			return null;
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("¹Ø±ÕÊý¾Ý¿âÁ¬½ÓÊ±·¢Éú´íÎó");
+				util.Log.e("ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 				e.printStackTrace();
 			}
 		}
@@ -87,14 +87,14 @@ public class Order_DAO {
 	}
 
 	public static void Order_Sent(int Order_ID, String Sent_ID) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½<i>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Connection conn=null;
 		String sql="Update order set Transid=?,Ostatus='1' where Oid=?";
 		try {
 			conn = DBHelper.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, Sent_ID);
-			statement.setInt(1, Order_ID);
+			statement.setInt(2, Order_ID);
 			
 			ResultSet rs;
 			String str;
@@ -103,12 +103,12 @@ public class Order_DAO {
 			statement.close();
 			conn.close();
 		} catch(SQLException e){
-			util.Log.e("»ñÈ¡Êý¾ÝÊ±·¢Éú´íÎó");
+			util.Log.e("ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("¹Ø±ÕÊý¾Ý¿âÁ¬½ÓÊ±·¢Éú´íÎó");
+				util.Log.e("ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 				e.printStackTrace();
 			}
 		}
@@ -116,12 +116,12 @@ public class Order_DAO {
 	}
 
 	public static void Order_Pay(int Order_ID) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	}
 
 	public static bean.Order Order_getDetails(int Order_ID) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		Connection conn=null;
 		String sql="select * from order where Oid=?";
@@ -146,13 +146,13 @@ public class Order_DAO {
 			statement.close();
 			conn.close();
 		} catch(SQLException e){
-			util.Log.e("»ñÈ¡Êý¾ÝÊ±·¢Éú´íÎó");
+			util.Log.e("ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			return null;
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("¹Ø±ÕÊý¾Ý¿âÁ¬½ÓÊ±·¢Éú´íÎó");
+				util.Log.e("ï¿½Ø±ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 				e.printStackTrace();
 			}
 		}
