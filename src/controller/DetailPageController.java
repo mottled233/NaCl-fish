@@ -51,7 +51,7 @@ public class DetailPageController extends HttpServlet{
 		int goodID = Integer.parseInt(request.getParameter(PARAM_IN_ID));
 		Goods goods = Goods_DAO.item_getGoods(goodID);
 		GoodInfo goodinfo = Goods_DAO.Item_getDetailInfo(goodID);
-		List<Comment> good_comment = new ArrayList<Comment>();
+		List<Comment> good_comment = Goods_DAO.Item_getCritisizes(goodID);
 		good_comment = Goods_DAO.Item_getCritisizes(goodID);
 		
 		
