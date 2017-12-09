@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 
 import bean.Goods;
+import bean.Order;
 import bean.Users;
 import util.DBHelper;
 
@@ -23,15 +24,20 @@ public class Order_DAO {
 			String str;
 			str = "select * from goods where Gid=" + Item_ID;
 			rs = statement.executeQuery(str);
-
-			str = "Insert into order(Buyer,Seller,Transid,Ostatus,Gid) values('" + costumer_ID + "','"
-					+ rs.getString("Owner") + "','-1,0','" + Item_ID + "')";
+			if(!rs.next()){
+				return -1;
+			}
+			str = "Insert into orders (Buyer,Seller,Transid,Ostatus,Gid) values('" + costumer_ID + " ',' "
+					+ rs.getString("Owner") + "','-1',0," + Item_ID + ")";
 			statement.executeUpdate(str);
 			rs.close();
 			statement.close();
 			conn.close();
 			return 0;
 		} catch(SQLException e){
+			e.printStackTrace();
+			util.Log.e("连接数据库出错");
+
 			return -1;
 		} finally{
 			try {
@@ -47,7 +53,7 @@ public class Order_DAO {
 		ArrayList<bean.Order> result = new ArrayList<bean.Order>();
 		PreparedStatement statement=null;
 		Connection conn=null;
-		String sql="select * from order where Buyer=? OR Seller=?";;
+		String sql="select * from orders where Buyer=? OR Seller=?";;
 		try {
 			conn = DBHelper.getConnection();
 			statement=conn.prepareStatement(sql);
@@ -83,7 +89,7 @@ public class Order_DAO {
 
 	public static void Order_Sent(int Order_ID, String Sent_ID) {
 		Connection conn=null;
-		String sql="Update order set Transid=?,Ostatus='1' where Oid=?";
+		String sql="Update orders set Transid=?,Ostatus='1' where Oid=?";
 		try {
 			conn = DBHelper.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -92,11 +98,12 @@ public class Order_DAO {
 			
 			ResultSet rs;
 			String str;
-
-			statement.executeQuery();
+			statement.executeUpdate();
 			statement.close();
 			conn.close();
 		} catch(SQLException e){
+			util.Log.e("连接数据库出错");
+			e.printStackTrace();
 		} finally{
 			try {
 				conn.close();
@@ -114,7 +121,7 @@ public class Order_DAO {
 	public static bean.Order Order_getDetails(int Order_ID) {
 		
 		Connection conn=null;
-		String sql="select * from order where Oid=?";
+		String sql="select * from orders where Oid=?";
 		
 		
 		try {
@@ -124,6 +131,7 @@ public class Order_DAO {
 			ResultSet rs;
 
 			rs = statement.executeQuery();
+			rs.next();
 			bean.Order order = new bean.Order();
 			order.setBuyer(rs.getString("Buyer"));
 			order.setgID(rs.getInt("Gid"));
@@ -135,7 +143,10 @@ public class Order_DAO {
 			rs.close();
 			statement.close();
 			conn.close();
+			return order;
 		} catch(SQLException e){
+			util.Log.e("连接数据库出错");
+			e.printStackTrace();
 			return null;
 		} finally{
 			try {
@@ -144,8 +155,5 @@ public class Order_DAO {
 				e.printStackTrace();
 			}
 		}
-
-		return null;
 	}
-
 }

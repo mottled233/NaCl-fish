@@ -1,6 +1,6 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="bean.Goods"%>
 <%@page import="bean.GoodInfo"%>
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <% 
 HttpSession session1 = request.getSession();
 List<Goods> resultGoods = (List<Goods>)session1.getAttribute("have_list");
