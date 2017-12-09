@@ -32,13 +32,11 @@ public class Order_DAO {
 			conn.close();
 			return 0;
 		} catch(SQLException e){
-			util.Log.e("获取数据时发生错误");
 			return -1;
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("关闭数据库连接时发生错误");
 				e.printStackTrace();
 			}
 		}
@@ -46,7 +44,6 @@ public class Order_DAO {
 	}
 
 	public static ArrayList<bean.Order> Order_getList(String User_ID) {
-		// TODO 自动生成的方法存根
 		ArrayList<bean.Order> result = new ArrayList<bean.Order>();
 		PreparedStatement statement=null;
 		Connection conn=null;
@@ -73,13 +70,11 @@ public class Order_DAO {
 			conn.close();
 			return result;
 		} catch(SQLException e){
-			util.Log.e("获取数据时发生错误");
 			return null;
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("关闭数据库连接时发生错误");
 				e.printStackTrace();
 			}
 		}
@@ -87,14 +82,13 @@ public class Order_DAO {
 	}
 
 	public static void Order_Sent(int Order_ID, String Sent_ID) {
-		// TODO 自动生成的方法存根
 		Connection conn=null;
 		String sql="Update order set Transid=?,Ostatus='1' where Oid=?";
 		try {
 			conn = DBHelper.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, Sent_ID);
-			statement.setInt(1, Order_ID);
+			statement.setInt(2, Order_ID);
 			
 			ResultSet rs;
 			String str;
@@ -103,12 +97,10 @@ public class Order_DAO {
 			statement.close();
 			conn.close();
 		} catch(SQLException e){
-			util.Log.e("获取数据时发生错误");
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("关闭数据库连接时发生错误");
 				e.printStackTrace();
 			}
 		}
@@ -116,12 +108,10 @@ public class Order_DAO {
 	}
 
 	public static void Order_Pay(int Order_ID) {
-		// TODO 自动生成的方法存根
 
 	}
 
 	public static bean.Order Order_getDetails(int Order_ID) {
-		// TODO 自动生成的方法存根
 		
 		Connection conn=null;
 		String sql="select * from order where Oid=?";
@@ -146,13 +136,11 @@ public class Order_DAO {
 			statement.close();
 			conn.close();
 		} catch(SQLException e){
-			util.Log.e("获取数据时发生错误");
 			return null;
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("关闭数据库连接时发生错误");
 				e.printStackTrace();
 			}
 		}
