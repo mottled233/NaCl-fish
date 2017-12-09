@@ -1,3 +1,5 @@
 *.class
 *.class
 WebRoot/person/information.jsp
+WebRoot/WEB-INF/classes/dao/Goods_Dao.class
+*.class

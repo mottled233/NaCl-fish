@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * 
  */
@@ -24,3 +25,16 @@ public class TestAction {
 	}
 }
 
+=======
+package Test;
+
+import dao.User_DAO;
+
+public class TestAction {
+	public static void main(String[] args){
+		User_DAO.User_checkin("ÕÅÈý","123");
+		
+		
+	}
+}
+>>>>>>> ce13135c36ec94a8fb09b59dcf7686ab2a092629
