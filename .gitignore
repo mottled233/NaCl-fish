@@ -1,2 +1,3 @@
 *.class
 *.class
+WebRoot/WEB-INF/classes/dao/Goods_Dao.class
