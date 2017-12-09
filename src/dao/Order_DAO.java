@@ -35,14 +35,16 @@ public class Order_DAO {
 			conn.close();
 			return 0;
 		} catch(SQLException e){
+<<<<<<< HEAD
 			e.printStackTrace();
 			util.Log.e("��ȡ����ʱ��������");
+=======
+>>>>>>> 41d81a9b2200388760930760509e23110800b87f
 			return -1;
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("�ر����ݿ�����ʱ��������");
 				e.printStackTrace();
 			}
 		}
@@ -50,7 +52,6 @@ public class Order_DAO {
 	}
 
 	public static ArrayList<bean.Order> Order_getList(String User_ID) {
-		// TODO �Զ����ɵķ������
 		ArrayList<bean.Order> result = new ArrayList<bean.Order>();
 		PreparedStatement statement=null;
 		Connection conn=null;
@@ -77,13 +78,11 @@ public class Order_DAO {
 			conn.close();
 			return result;
 		} catch(SQLException e){
-			util.Log.e("��ȡ����ʱ��������");
 			return null;
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("�ر����ݿ�����ʱ��������");
 				e.printStackTrace();
 			}
 		}
@@ -91,7 +90,6 @@ public class Order_DAO {
 	}
 
 	public static void Order_Sent(int Order_ID, String Sent_ID) {
-		// TODO �Զ����<i>������
 		Connection conn=null;
 		String sql="Update orders set Transid=?,Ostatus='1' where Oid=?";
 		try {
@@ -106,13 +104,15 @@ public class Order_DAO {
 			statement.close();
 			conn.close();
 		} catch(SQLException e){
+<<<<<<< HEAD
 			util.Log.e("��ȡ����ʱ��������");
 			e.printStackTrace();
+=======
+>>>>>>> 41d81a9b2200388760930760509e23110800b87f
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("�ر����ݿ�����ʱ��������");
 				e.printStackTrace();
 			}
 		}
@@ -120,12 +120,10 @@ public class Order_DAO {
 	}
 
 	public static void Order_Pay(int Order_ID) {
-		// TODO �Զ����ɵķ������
 
 	}
 
 	public static bean.Order Order_getDetails(int Order_ID) {
-		// TODO �Զ����ɵķ������
 		
 		Connection conn=null;
 		String sql="select * from orders where Oid=?";
@@ -152,14 +150,16 @@ public class Order_DAO {
 			conn.close();
 			return order;
 		} catch(SQLException e){
+<<<<<<< HEAD
 			util.Log.e("��ȡ����ʱ��������");
 			e.printStackTrace();
+=======
+>>>>>>> 41d81a9b2200388760930760509e23110800b87f
 			return null;
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				util.Log.e("�ر����ݿ�����ʱ��������");
 				e.printStackTrace();
 			}
 		}

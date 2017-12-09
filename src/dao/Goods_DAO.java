@@ -6,10 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.attribute.Size2DSyntax;
 import javax.swing.text.DefaultEditorKit.InsertBreakAction;
+import javax.xml.soap.Detail;
 
 import exception.BadInputException;
 
@@ -21,32 +24,128 @@ import util.DBHelper;
 
 public class Goods_DAO{
 	
+	public static void main(String[] args) throws SQLException{
+		Goods goods = item_getGoods(1);
+		Log.d("in item get goods");
+		Log.d("id"+goods.getgID());
+		Log.d("kind"+goods.getgKind());
+		Log.d("name"+goods.getgName());
+		Log.d("gPrice"+goods.getgPrice());
+		GoodInfo info = Item_getDetailInfo(1);
+		Log.d("in item get info");
+		Log.d("id"+info.getgID());
+		Log.d("info"+info.getgInfo());
+		Log.d("img"+info.getgImgs());
+		Log.d("nice"+info.getgNice());
+		Log.d("view"+info.getgView());
+		
+		
+		goods.setgID(-1);
+		goods.setgName("测试用物品 电子数码 照相机");
+		goods.setgPrice(25.00);
+		goods.setgKind("数码");
+		goods.setgLocation("山东 济南");
+		goods.setOwner("mottled");
+		
+		info.setgInfo("测试用物品，暂不出售，谢谢合作");
+		info.setgNice(2);
+		info.setgView(1000);
+		Log.d("in item issue");
+		int gid = Item_Issue(goods, info);
+		Log.d(""+gid);
+		
+		
+		List<Map<String,Object>> params = new ArrayList<Map<String,Object>>();
+		Map<String,Object> param = new HashMap<String, Object>();
+		param.put("name", "owner");
+		param.put("rela", "=");
+		param.put("value", "'mottled'");
+		params.add(param);
+		
+		List<Goods> list1 = item_getGoods_bycondition(params);
+		Log.d("in test item get by condition");
+		for(int i = 0;i<list1.size();i++){
+			Log.d(""+i+":");
+			goods = list1.get(i);
+			Log.d("id"+goods.getgID());
+			Log.d("kind"+goods.getgKind());
+			Log.d("name"+goods.getgName());
+			Log.d("gPrice"+goods.getgPrice());
+		}
+		
+		list1 = Item_getRank("数码",0);
+		Log.d("in test item get by kind rank");
+		for(int i = 0;i<list1.size();i++){
+			Log.d(""+i+":");
+			goods = list1.get(i);
+			Log.d("id"+goods.getgID());
+			Log.d("kind"+goods.getgKind());
+			Log.d("name"+goods.getgName());
+			Log.d("gPrice"+goods.getgPrice());
+		}
+		
+		String[] aaa = {"照相机","测试"};
+		DataPage<Goods> dPage = Item_getListByKeyword(aaa, 1, 20, new String[3]);
+		Log.d("in test getKeyword");
+		Log.d("TotalRecord"+dPage.getTotalRecord());
+		Log.d("TotalPage"+dPage.getTotalPage());
+		Log.d("CurrentPage"+dPage.getCurrentPage());
+		list1 = dPage.getList();
+		for(int i = 0;i<list1.size();i++){
+			Log.d(""+i+":");
+			goods = list1.get(i);
+			Log.d("id"+goods.getgID());
+			Log.d("kind"+goods.getgKind());
+			Log.d("name"+goods.getgName());
+			Log.d("gPrice"+goods.getgPrice());
+		}
+		
+		
+		Log.d("in test get by class");
+		list1 = Item_getListByClass("数码");
+		for(int i = 0;i<list1.size();i++){
+			Log.d(""+i+":");
+			goods = list1.get(i);
+			Log.d("id"+goods.getgID());
+			Log.d("kind"+goods.getgKind());
+			Log.d("name"+goods.getgName());
+			Log.d("gPrice"+goods.getgPrice());
+		}
+		
+		Item_LeaveStore(0);
+		
+	}
+	
 	public static Goods item_getGoods(int GID){
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-		String s="1";
-		String sql = "select from goods where gid=?";
+		String sql = "select * from goods where gid=?";
 		try{
 			connection = DBHelper.getConnection();
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, GID);
-			
+			Log.d(statement.toString());
 			rs = statement.executeQuery();
 			Goods good = new Goods();
 			if(rs.next()){
+				Log.d("111");
 				good.setgID(rs.getInt("Gid"));
 				good.setgImg(rs.getString("Gimg"));
 				good.setgKind(rs.getString("Gkind"));
 				good.setgLocation(rs.getString("Glocation"));
 				good.setgName(rs.getString("Gname"));
-				good.setgPrice(rs.getDouble("Price"));
+				good.setgPrice(rs.getDouble("gPrice"));
 				good.setOwner(rs.getString("Owner"));
 				return good;
-			}else
+			}else{
+
+				Log.d("111");
 				return null;
+			}
 		}catch(SQLException e){
 			util.Log.e("获取数据时发生错误");
+			e.printStackTrace();
 			return null;
 		} finally{
 			try {
@@ -61,7 +160,7 @@ public class Goods_DAO{
 	public static List<Goods> item_getGoods_bycondition(List<Map<String,Object>> params) throws SQLException{
 		List<Goods> resultGoods = new ArrayList<Goods>();
 		
-		Connection con = null;
+		Connection con = DBHelper.getConnection();
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("select * from goods where 1=1 ");
@@ -72,6 +171,7 @@ public class Goods_DAO{
 				sb.append("and "+ map.get("name") + " " + map.get("rela") + " " + map.get("value"));
 			}
 		}
+		Log.d(sb.toString());
 		PreparedStatement ptmt = con.prepareStatement(sb.toString());
 		ResultSet rs = ptmt.executeQuery();
 		
@@ -83,7 +183,7 @@ public class Goods_DAO{
 			good.setgKind(rs.getString("Gkind"));
 			good.setgLocation(rs.getString("Glocation"));
 			good.setgName(rs.getString("Gname"));
-			good.setgPrice(rs.getDouble("Price"));
+			good.setgPrice(rs.getDouble("gPrice"));
 			good.setOwner(rs.getString("Owner"));
 			
 			resultGoods.add(good);
@@ -97,7 +197,7 @@ public class Goods_DAO{
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-		String sql = "select from goodinfo where gid=?";
+		String sql = "select * from goodinfo where gid=?";
 		try{
 			connection = DBHelper.getConnection();
 			statement = connection.prepareStatement(sql);
@@ -117,6 +217,7 @@ public class Goods_DAO{
 				return null;
 		}catch(SQLException e){
 			util.Log.e("获取数据时发生错误");
+			e.printStackTrace();
 			return null;
 		} finally{
 			try {
@@ -136,17 +237,17 @@ public class Goods_DAO{
 		String str="select * from goods limit 1000";
 		switch(mode){
 		case 0://依据访问量
-			str="select * from goodinfo natural join goods wher GKind='"+Rank+"' order by Gview limit 1000";
+			str="select * from goodinfo natural join goods where GKind='"+Rank+"' order by Gview  limit 0,1000 ";
 			break;
 		case 1://依据收藏量
 
-			str="select * from goodinfo natural join goods wher GKind='"+Rank+"' order by Gcollect limit 1000";
+			str="select * from goodinfo natural join goods where GKind='"+Rank+"' order by Gcollect limit 0,1000";
 			break;
 		case 2://依据点赞量
-			str="select * from goodinfo natural join goods wher GKind='"+Rank+"' order by Gnice limit 1000";
+			str="select * from goodinfo natural join goods where GKind='"+Rank+"' order by Gnice limit 0,1000";
 			break;
 		default:
-			str="select * from goodinfo natural join goods wher GKind='"+Rank+"' order by Gview limit 1000";
+			str="select * from goodinfo natural join goods where GKind='"+Rank+"' order by Gview limit 0,1000";
 			break;
 		}
 		try {
@@ -164,7 +265,7 @@ public class Goods_DAO{
 				good.setgKind(rs.getString("Gkind"));
 				good.setgLocation(rs.getString("Glocation"));
 				good.setgName(rs.getString("Gname"));
-				good.setgPrice(rs.getDouble("Price"));
+				good.setgPrice(rs.getDouble("gPrice"));
 				good.setOwner(rs.getString("Owner"));
 				result.add(good);
 			}
@@ -172,7 +273,8 @@ public class Goods_DAO{
 			return result;
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
-			util.Log.e("关闭数据库连接时发生错误");
+			util.Log.e("数据库连接时发生错误");
+			e.printStackTrace();
 			return null;
 		}finally{
 			try {
@@ -203,7 +305,7 @@ public class Goods_DAO{
 			if (keyword.length!=0) {
 				
 				for (int i = 0; i < keyword.length; i++) {
-					str += " and '%" + keyword[i] + "%'";
+					str += " and gname like '%" + keyword[i] + "%'";
 				}
 			}
 			if(params[0]!=null&&!params[0].equals("")){
@@ -218,13 +320,15 @@ public class Goods_DAO{
 			
 			
 			
-			str += "limit"+(currentPage-1)*recordPerPage+","+currentPage*recordPerPage;
+			str += " limit "+(currentPage-1)*recordPerPage+","+currentPage*recordPerPage;
 			statement=conn.prepareStatement(str);
 			
 			
-			statement.setString(1,params[0]);
-			statement.setDouble(2, Double.parseDouble(params[1]));
-			statement.setDouble(3, Double.parseDouble(params[2]));
+			int index = 1;
+			for(int i = 0;i<3;i++){
+				if(params[i]!=null&&!params[i].equals(""))
+					statement.setString(index++,params[i]);
+			}
 			rs = statement.executeQuery();
 			while (rs.next()) {
 				Goods good = new Goods();
@@ -233,7 +337,7 @@ public class Goods_DAO{
 				good.setgKind(rs.getString("Gkind"));
 				good.setgLocation(rs.getString("Glocation"));
 				good.setgName(rs.getString("Gname"));
-				good.setgPrice(rs.getDouble("Price"));
+				good.setgPrice(rs.getDouble("gPrice"));
 				good.setOwner(rs.getString("Owner"));
 				result.add(good);
 			}
@@ -242,7 +346,7 @@ public class Goods_DAO{
 			if (keyword.length!=0) {
 				
 				for (int i = 0; i < keyword.length; i++) {
-					str += " and '%" + keyword[i] + "%'";
+					str += " and gname like '%" + keyword[i] + "%'";
 				}
 			}
 			if(params[0]!=null&&!params[0].equals("")){
@@ -255,27 +359,29 @@ public class Goods_DAO{
 				str+="and gprice<?";
 			}
 			
-			
-			
-			str += "limit"+(currentPage-1)*recordPerPage+","+currentPage*recordPerPage;
 			statement=conn.prepareStatement(str);
 			
+			index = 1;
+			for(int i = 0;i<3;i++){
+				if(params[i]!=null&&!params[i].equals(""))
+					statement.setString(index++,params[i]);
+			}
 			
-			statement.setString(1,params[0]);
-			statement.setDouble(2, Double.parseDouble(params[1]));
-			statement.setDouble(3, Double.parseDouble(params[2]));
+			Log.d(statement.toString());
 			rs = statement.executeQuery();
 			rs.next();
-			int total = rs.getInt(0);
+			int total = rs.getInt("count(*)");
 			DataPage<Goods> res=new DataPage<Goods>(total,recordPerPage,currentPage);
 			res.setList(result);
 			return res;
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
-			util.Log.e("关闭数据库连接时发生错误");
+			util.Log.e("数据库连接时发生错误");
+			e.printStackTrace();
 			return null;
 		}catch(BadInputException e){
 			util.Log.e("输入错误");
+			e.printStackTrace();
 			return null;
 		}
 		finally{
@@ -311,16 +417,19 @@ public class Goods_DAO{
 				good.setgKind(rs.getString("Gkind"));
 				good.setgLocation(rs.getString("Glocation"));
 				good.setgName(rs.getString("Gname"));
-				good.setgPrice(rs.getDouble("Price"));
+				good.setgPrice(rs.getDouble("gPrice"));
 				good.setOwner(rs.getString("Owner"));
 				result.add(good);
+				
 			}
 			rs.close();
 			statement.close();
 			conn.close();
+			return result;
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			util.Log.e("关闭数据库连接时发生错误");
+			e.printStackTrace();
 			return null;
 		}finally{
 			try {
@@ -331,7 +440,6 @@ public class Goods_DAO{
 			}
 		}
 
-		return null;
 	}
 
 	public static ArrayList<Comment> Item_getCritisizes(int ItemID) {
@@ -356,13 +464,16 @@ public class Goods_DAO{
 				comm.setgID(rs.getInt("Gid"));
 				comm.setReplyname(rs.getString("Replyname"));
 				comm.setParentid(rs.getString("Parentid"));
+				result.add(comm);
 			}
 			rs.close();
 			statement.close();
 			conn.close();
+			return result;
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			util.Log.e("关闭数据库连接时发生错误");
+			e.printStackTrace();
 			return null;
 		}finally{
 			try {
@@ -373,8 +484,6 @@ public class Goods_DAO{
 			}
 		}
 		
-		
-		return null;
 	}
 
 	public static int Item_Issue(Goods item, GoodInfo detail) {
@@ -386,19 +495,16 @@ public class Goods_DAO{
 			ResultSet rs;
 			String str;
 
-			str = "insert into goods(gNmae,gPrice,gKind,Owner,gLocation,gImg) values=('"+ item.getgName() + "','" + item.getgPrice() + "','"
+			str = "insert into goods(gname,gPrice,gKind,Owner,gLocation,gImg) values ('"+ item.getgName() + "','" + item.getgPrice() + "','"
 					+ item.getgKind() + "','" + item.getOwner() + "','" + item.getgLocation() +"','"+ item.getgImg() + "')";
-			statement.executeUpdate(str);
+			statement.executeUpdate (str,Statement.RETURN_GENERATED_KEYS);  
 			rs = statement.getGeneratedKeys();
 			rs.next();
 			gid = rs.getInt(1);
 			
-			str = "insert into goodinfo(Gid,Ginfo,Gimgs,Gnice,Gcollect,Gview) values=("+ detail.getgID() + ",'" + detail.getgInfo() + "','"
+			str = "insert into goodinfo(Gid,Ginfo,Gimgs,Gnice,Gcollect,Gview) values ("+ gid + ",'" + detail.getgInfo() + "','"
 					+ detail.getgImgs() + "'," + detail.getgNice() + "," + detail.getgCollect() +","+ detail.getgView()+ ")";
-			statement.executeUpdate(str);
-			rs = statement.getGeneratedKeys();
-			rs.next();
-			gid = rs.getInt(1);
+			statement.executeUpdate (str);
 			
 			
 			statement.close();
@@ -407,6 +513,7 @@ public class Goods_DAO{
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			System.out.println("Issue good Fail!");
+			e.printStackTrace();
 			return -1;
 		}
 	}

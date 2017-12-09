@@ -9,25 +9,23 @@ import util.Log;
 public class DBHelper {
 	
 	private static final String driver = "com.mysql.jdbc.Driver";
-	// localhostÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ipï¿½ï¿½Ö·ï¿½ï¿½ï¿½æ£¬3306ÎªMySQLï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ä¬ï¿½Ï¶Ë¿ÚºÅ£ï¿½ï¿½ï¿½userï¿½ï¿½ÎªÒªï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
+	// localhostÖ¸±¾»ú£¬Ò²¿ÉÒÔÓÃ±¾µØipµØÖ·´úÌæ£¬3306ÎªMySQLÊý¾Ý¿âµÄÄ¬ÈÏ¶Ë¿ÚºÅ£¬¡°user¡±ÎªÒªÁ¬½ÓµÄÊý¾Ý¿âÃû
+
 	private static final String url = "jdbc:mysql://localhost:3306/naclfish";
 	
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private static final String username = "root";
-	private static final String password = "";
+	private static final String password = "root";
 	
 	public static Connection getConnection() throws SQLException{
 		Connection con = null;
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
-			Log.e("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 			e.printStackTrace();
-		}// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò£¬´Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
+		}
 		try{
-			con = DriverManager.getConnection(url, username, password);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
+			con = DriverManager.getConnection(url, username, password);
 		}catch(Exception e){
-			Log.e("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ê¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		}
 		return con;

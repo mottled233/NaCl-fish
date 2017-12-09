@@ -10,6 +10,8 @@ import util.DBHelper;
 
 public class User_DAO{
 
+
+	
 	public static boolean User_checkin(String User_ID, String password) {
 		try {
 			Connection connection=DBHelper.getConnection();
@@ -19,8 +21,12 @@ public class User_DAO{
 			String password_pre=rs.getString(0);
 			rs.close();
 			statement.close();
-			if(password_pre.equals(password))
+			if(password_pre.equals(password)){
+				System.out.println("³É¹¦");
 				return true;
+			
+			}
+			
 			return false;
 			
 			
