@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.Log;
+
 import bean.Users;
 
 import dao.User_DAO;
@@ -56,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		Log.d("111");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		PrintWriter out = response.getWriter();
@@ -67,6 +69,7 @@ public class LoginServlet extends HttpServlet {
 		//检验用户名密码是否正确
 		if(User_DAO.User_checkin(username, password)){
 			Users user = User_DAO.User_getInf(username);
+			Log.d(username+" "+user.getUsername());
 			request.getSession().setAttribute("user", user);
 			out.println("success!");
 		}else{

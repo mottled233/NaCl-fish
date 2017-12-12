@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import util.Log;
+
 import dao.Goods_DAO;
 import bean.Comment;
 import bean.GoodInfo;
@@ -63,13 +65,14 @@ public class SellReleaseController extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		List<GoodInfo> goodinfo = null;
+		List<GoodInfo> goodinfo = new ArrayList<GoodInfo>();
 		for(int i = 0 ; i < resultGoods.size();i++){
 			goodinfo.add(Goods_DAO.Item_getDetailInfo(resultGoods.get(i).getgID()));
 		}
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("have_list",resultGoods);
+		Log.d(goodinfo.toString());
 		session.setAttribute("have_list_info", goodinfo);
 		
 		PrintWriter out = response.getWriter();

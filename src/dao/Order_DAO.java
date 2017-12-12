@@ -36,7 +36,6 @@ public class Order_DAO {
 			return 0;
 		} catch(SQLException e){
 			e.printStackTrace();
-			util.Log.e("连接数据库出错");
 
 			return -1;
 		} finally{
@@ -102,7 +101,6 @@ public class Order_DAO {
 			statement.close();
 			conn.close();
 		} catch(SQLException e){
-			util.Log.e("连接数据库出错");
 			e.printStackTrace();
 		} finally{
 			try {
@@ -145,7 +143,6 @@ public class Order_DAO {
 			conn.close();
 			return order;
 		} catch(SQLException e){
-			util.Log.e("连接数据库出错");
 			e.printStackTrace();
 			return null;
 		} finally{

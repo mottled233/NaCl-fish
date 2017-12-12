@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Goods;
-import bean.Users;
-import dao.Goods_DAO;
-import dao.Order_DAO;
+import dao.*;
 
 public class MainPageController extends HttpServlet {
 
@@ -33,8 +31,6 @@ public class MainPageController extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
-		Users user = (Users) session.getAttribute("user");
-		String uname = user.getUsername();
 		String[] categorys={"数码","生鲜","服装"};
 		for(int i=0;i<categorys.length;i++){
 			ArrayList<Goods> Rank1=Goods_DAO.Item_getRank(categorys[i], 1);
